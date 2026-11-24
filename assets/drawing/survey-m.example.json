@@ -1,0 +1,18 @@
+{
+  "purpose": "米单位测绘模型示例；比例500仅演示，不代表当前项目标准",
+  "model_unit": "m",
+  "millimeters_per_model_unit": 1000,
+  "coordinate_system": null,
+  "paper_unit": "mm",
+  "scale_denominator": 500,
+  "paper_text_height_mm": 3.5,
+  "existing_definition_policy": "preserve_or_create_project_suffix",
+  "layers": [
+    {"name": "ZW_BOUNDARY", "color": 1, "linetype": "CONTINUOUS"},
+    {"name": "ZW_POINT_LABEL", "color": 7, "linetype": "CONTINUOUS"},
+    {"name": "ZW_AREA_LABEL", "color": 7, "linetype": "CONTINUOUS"}
+  ],
+  "styles": {"text_font": null, "dimension_style": null},
+  "apply": "missing_only_after_inspection",
+  "geometry_scaling": "never_as_initialization"
+}

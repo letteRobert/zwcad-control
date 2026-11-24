@@ -1,0 +1,14 @@
+{
+  "assembly_file": "CadBridge-Compat.Dev64.dll",
+  "host": "ZWCAD 2025 x64",
+  "assembly_sha256": "ea6906b45aa7ec99a8c234c15f02a7aba885391d4b9cec93488baaa359e89826",
+  "source_sha256": "06ac4543090df982b54e8ddb5a9819160926dcbd7fa954aa5bcf47f5685f915a",
+  "requires_original_tmagent": false,
+  "acceptance_scope": "Dev64: 17 structured-query live cases; 10 helper tests; 12 legacy REST/MCP regression tests; full 98-tool acceptance incomplete",
+  "compatible_builds": [
+    {
+      "assembly_file": "CadBridge-Compat.Dev62.dll",
+      "assembly_sha256": "2fe7f9bf84f04fd94a6d35df99810564258ebe1a869d00ccb9636e1e9f928489"
+    }
+  ]
+}

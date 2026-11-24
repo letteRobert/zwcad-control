@@ -1,0 +1,18 @@
+{
+  "purpose": "毫米新图示例，复制后按项目确认；不是自动执行请求",
+  "model_unit": "mm",
+  "millimeters_per_model_unit": 1,
+  "coordinate_system": null,
+  "paper_unit": "mm",
+  "scale_denominator": 1,
+  "paper_text_height_mm": 3.5,
+  "existing_definition_policy": "preserve_or_create_project_suffix",
+  "layers": [
+    {"name": "ZW_FRAME", "color": 7, "linetype": "CONTINUOUS"},
+    {"name": "ZW_TITLE", "color": 7, "linetype": "CONTINUOUS"},
+    {"name": "ZW_GEOMETRY", "color": 7, "linetype": "CONTINUOUS"},
+    {"name": "ZW_TEXT", "color": 7, "linetype": "CONTINUOUS"}
+  ],
+  "styles": {"text_font": null, "dimension_style": null},
+  "apply": "missing_only_after_inspection"
+}

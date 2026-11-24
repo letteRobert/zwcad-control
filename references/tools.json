@@ -1,0 +1,3288 @@
+[
+  {
+    "name": "line",
+    "description": "[绘图命令] 绘制两点直线",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "起点 [x,y]"
+        },
+        "end": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "终点 [x,y]"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    }
+  },
+  {
+    "name": "circle",
+    "description": "[绘图命令] 绘制圆",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "cx": {
+          "type": "number",
+          "description": "圆心X"
+        },
+        "cy": {
+          "type": "number",
+          "description": "圆心Y"
+        },
+        "r": {
+          "type": "number",
+          "description": "半径(>0)"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "cx",
+        "cy",
+        "r"
+      ]
+    }
+  },
+  {
+    "name": "arc",
+    "description": "[绘图命令] 绘制圆弧（圆心+半径+角度）",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "cx": {
+          "type": "number",
+          "description": "圆心X"
+        },
+        "cy": {
+          "type": "number",
+          "description": "圆心Y"
+        },
+        "r": {
+          "type": "number",
+          "description": "半径(>0)"
+        },
+        "start_angle": {
+          "type": "number",
+          "description": "起始角度(度)"
+        },
+        "end_angle": {
+          "type": "number",
+          "description": "终止角度(度)"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "cx",
+        "cy",
+        "r",
+        "start_angle",
+        "end_angle"
+      ]
+    }
+  },
+  {
+    "name": "rectangle",
+    "description": "[绘图命令] 绘制矩形",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "左下角X"
+        },
+        "y": {
+          "type": "number",
+          "description": "左下角Y"
+        },
+        "width": {
+          "type": "number",
+          "description": "宽度(>0)"
+        },
+        "height": {
+          "type": "number",
+          "description": "高度(>0)"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ]
+    }
+  },
+  {
+    "name": "polyline",
+    "description": "[绘图命令] 绘制多段线",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "顶点数组[x1,y1,x2,y2,...]至少4个值"
+        },
+        "closed": {
+          "type": "string",
+          "description": "是否闭合",
+          "default": "false"
+        },
+        "bulges": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "各段凸度(可选,与顶点数等长;0=直线段,1=半圆,θ=4*atan(bulge);正=逆时针)"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "points"
+      ]
+    }
+  },
+  {
+    "name": "ellipse",
+    "description": "[绘图命令] 绘制椭圆",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "cx": {
+          "type": "number",
+          "description": "中心X"
+        },
+        "cy": {
+          "type": "number",
+          "description": "中心Y"
+        },
+        "rx": {
+          "type": "number",
+          "description": "X轴半径(>0)"
+        },
+        "ry": {
+          "type": "number",
+          "description": "Y轴半径(>0)"
+        },
+        "angle": {
+          "type": "number",
+          "description": "旋转角度(度)",
+          "default": "0"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "cx",
+        "cy",
+        "rx",
+        "ry"
+      ]
+    }
+  },
+  {
+    "name": "spline",
+    "description": "[绘图命令] 绘制样条曲线",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "控制点[x1,y1,x2,y2,...]"
+        },
+        "degree": {
+          "type": "integer",
+          "description": "阶数",
+          "default": "3"
+        },
+        "closed": {
+          "type": "boolean",
+          "description": "是否闭合",
+          "default": "false"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "points"
+      ]
+    }
+  },
+  {
+    "name": "polygon",
+    "description": "[绘图命令] 绘制多边形（封闭多段线）。正多边形用lisp:(command \"POLYGON\" sides center r)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "顶点数组[x1,y1,...]至少3点6个值"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "points"
+      ]
+    }
+  },
+  {
+    "name": "point",
+    "description": "[绘图命令] 绘制点",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "X坐标"
+        },
+        "y": {
+          "type": "number",
+          "description": "Y坐标"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    }
+  },
+  {
+    "name": "draw_text",
+    "description": "[文字命令] 放置文字(单行/多行合一)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "single=单行文字(text)/multi=多行文字(mtext)"
+        },
+        "x": {
+          "type": "number",
+          "description": "插入点X"
+        },
+        "y": {
+          "type": "number",
+          "description": "插入点Y"
+        },
+        "text": {
+          "type": "string",
+          "description": "文字内容(multi用\\P换行)"
+        },
+        "height": {
+          "type": "number",
+          "description": "文字高度(默认2.5)"
+        },
+        "width": {
+          "type": "number",
+          "description": "文本框宽度(仅multi需要)"
+        },
+        "alignment": {
+          "type": "string",
+          "description": "对齐:left/center/right + middle_/bottom_/top_ 组合(默认左下)"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "mode",
+        "x",
+        "y",
+        "text"
+      ]
+    }
+  },
+  {
+    "name": "dimension",
+    "description": "[标注命令] 创建标注(只画标注;要数值用geo_basic) —— 必填:aligned|linear→x1,y1,x2,y2;radial→cx,cy,r;diametric→cx,cy,d;angular→x1,y1(顶点),x2,y2,x3,y3;ordinate→x1,y1,ref_x,ref_y。offset 带符号(负=反侧);要精确落位用 dim_pt_x/dim_pt_y;angular 走托管创建(失败会明确回报未校验)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "dim_type": {
+          "type": "string",
+          "description": "aligned(两点斜距)/linear(投影,rotation=0 为水平)/radial/diametric/angular/ordinate"
+        },
+        "x1": {
+          "type": "number",
+          "description": "第一点X"
+        },
+        "y1": {
+          "type": "number",
+          "description": "第一点Y"
+        },
+        "x2": {
+          "type": "number",
+          "description": "第二点X"
+        },
+        "y2": {
+          "type": "number",
+          "description": "第二点Y"
+        },
+        "x3": {
+          "type": "number",
+          "description": "第三点X"
+        },
+        "y3": {
+          "type": "number",
+          "description": "第三点Y"
+        },
+        "offset": {
+          "type": "number",
+          "description": "偏移距离【带符号】:正=法向一侧,负=反侧",
+          "default": "5"
+        },
+        "dim_pt_x": {
+          "type": "number",
+          "description": "尺寸线直接定点X(给了就优先于 offset,便于把标注放到视图下方/右侧)"
+        },
+        "dim_pt_y": {
+          "type": "number",
+          "description": "尺寸线直接定点Y"
+        },
+        "layer": {
+          "type": "string",
+          "description": "标注放到指定图层(空=当前层)"
+        },
+        "text_override": {
+          "type": "string",
+          "description": "覆盖标注文字(空=按测量值)。中望托管属性不可写⇒返回可粘贴的 entmod 方案;ACAD 可能直接生效"
+        },
+        "rotation": {
+          "type": "number",
+          "description": "linear投影方向(度):0=水平,90=垂直,可任意角",
+          "default": "0"
+        },
+        "cx": {
+          "type": "number",
+          "description": "圆心X(radial/diametric 必填)"
+        },
+        "cy": {
+          "type": "number",
+          "description": "圆心Y(radial/diametric 必填)"
+        },
+        "r": {
+          "type": "number",
+          "description": "半径(radial 必填;diametric 时可代替 d)"
+        },
+        "d": {
+          "type": "number",
+          "description": "直径(diametric 必填,缺省按 r*2)"
+        },
+        "ref_x": {
+          "type": "number",
+          "description": "参考点X(ordinate 必填)"
+        },
+        "ref_y": {
+          "type": "number",
+          "description": "参考点Y(ordinate 必填)"
+        },
+        "leading": {
+          "type": "number",
+          "description": "引线长度"
+        },
+        "axis": {
+          "type": "string",
+          "description": "坐标轴x/y",
+          "default": "x"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "dim_type"
+      ]
+    }
+  },
+  {
+    "name": "leader",
+    "description": "[标注命令] 绘制引线标注 —— 要单独操作引线/文字时，请使用返回的文字句柄（不要用相邻句柄推算）。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "顶点[x1,y1,x2,y2,x3,y3]"
+        },
+        "text": {
+          "type": "string",
+          "description": "标注文字"
+        },
+        "height": {
+          "type": "number",
+          "description": "文字高度(默认2.5)",
+          "default": "2.5"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "points",
+        "text"
+      ]
+    }
+  },
+  {
+    "name": "set_layer",
+    "description": "[图层命令] 切换到/创建图层",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "图层名(不存在则创建)",
+          "default": "0"
+        }
+      }
+    }
+  },
+  {
+    "name": "layer_manage",
+    "description": "[图层命令] 图层操作(freeze/lock/delete + create/set,兼容 set_layer) —— ★freeze/lock/delete 要求图层已存在(不自动建层);create 只建层不切当前层;set/current 等价 set_layer(建层并设为当前层)。其它 action 返回明确错误并列出可用值(不再静默当 freeze)。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "操作:freeze/lock/delete/create|new(只建层)/set|current|switch(建层并设为当前层)；freeze/lock/delete 需图层已存在"
+        },
+        "name": {
+          "type": "string",
+          "description": "图层名"
+        },
+        "state": {
+          "type": "boolean",
+          "description": "true=冻结/锁定；false=解冻/解锁(freeze/lock 用)"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "true=先将该层图元移至0层再删层( delete 使用 )"
+        }
+      },
+      "required": [
+        "action",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "transform",
+    "description": "[编辑命令] 几何变换(move/copy/rotate/scale/mirror)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "变换:move/copy/rotate/scale/mirror(mirror 移动源对象,要保留先 copy)"
+        },
+        "dx": {
+          "type": "number",
+          "description": "X位移( move/copy )"
+        },
+        "dy": {
+          "type": "number",
+          "description": "Y位移( move/copy )"
+        },
+        "count": {
+          "type": "integer",
+          "description": "复制份数(copy)",
+          "default": "1"
+        },
+        "angle": {
+          "type": "number",
+          "description": "旋转角度度,逆时针(rotate)"
+        },
+        "factor": {
+          "type": "number",
+          "description": "缩放比例>0(scale)"
+        },
+        "base_x": {
+          "type": "number",
+          "description": "基点X(rotate/scale)",
+          "default": "0"
+        },
+        "base_y": {
+          "type": "number",
+          "description": "基点Y(rotate/scale)",
+          "default": "0"
+        },
+        "x1": {
+          "type": "number",
+          "description": "镜像线起点X(mirror)"
+        },
+        "y1": {
+          "type": "number",
+          "description": "镜像线起点Y(mirror)"
+        },
+        "x2": {
+          "type": "number",
+          "description": "镜像线终点X(mirror)"
+        },
+        "y2": {
+          "type": "number",
+          "description": "镜像线终点Y(mirror)"
+        },
+        "index": {
+          "type": "integer",
+          "description": "图元索引(省略=最后创建的)"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄"
+        },
+        "use_selection": {
+          "type": "string",
+          "description": "\"true\"=对选中集操作"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "delete",
+    "description": "[编辑命令] 删除图元",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄"
+        },
+        "all": {
+          "type": "boolean",
+          "description": "true=删除全部",
+          "default": "false"
+        }
+      }
+    }
+  },
+  {
+    "name": "offset",
+    "description": "[编辑命令] 偏移图元",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "distance": {
+          "type": "number",
+          "description": "偏移距离(用过点时忽略)",
+          "default": "0"
+        },
+        "through_x": {
+          "type": "number",
+          "description": "过点偏移:目标点X(给了就忽略 distance/side)"
+        },
+        "through_y": {
+          "type": "number",
+          "description": "过点偏移:目标点Y"
+        },
+        "side": {
+          "type": "string",
+          "description": "方向 left/right",
+          "default": "left"
+        },
+        "index": {
+          "type": "integer",
+          "description": "图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄"
+        },
+        "use_selection": {
+          "type": "string",
+          "description": "\"true\"=偏移选中集"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      }
+    }
+  },
+  {
+    "name": "trim",
+    "description": "[编辑命令] 修剪图元",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "cutting_handle": {
+          "type": "string",
+          "description": "剪切边句柄"
+        },
+        "target_handle": {
+          "type": "string",
+          "description": "被修剪图元句柄"
+        },
+        "side": {
+          "type": "string",
+          "description": "保留侧 start/end"
+        }
+      },
+      "required": [
+        "cutting_handle",
+        "target_handle"
+      ]
+    }
+  },
+  {
+    "name": "extend",
+    "description": "[编辑命令] 延伸图元",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "boundary_handle": {
+          "type": "string",
+          "description": "边界图元句柄"
+        },
+        "target_handle": {
+          "type": "string",
+          "description": "被延伸图元句柄"
+        },
+        "boundary_handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "多边界句柄数组"
+        },
+        "handle": {
+          "type": "string",
+          "description": "目标图元句柄"
+        }
+      },
+      "required": [
+        "boundary_handle",
+        "target_handle"
+      ]
+    }
+  },
+  {
+    "name": "fillet",
+    "description": "[编辑命令] 倒圆角",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle1": {
+          "type": "string",
+          "description": "第一图元句柄"
+        },
+        "handle2": {
+          "type": "string",
+          "description": "第二图元句柄"
+        },
+        "radius": {
+          "type": "number",
+          "description": "圆角半径",
+          "default": "1.0"
+        }
+      },
+      "required": [
+        "handle1",
+        "handle2"
+      ]
+    }
+  },
+  {
+    "name": "chamfer",
+    "description": "[编辑命令] 倒斜角",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle1": {
+          "type": "string",
+          "description": "第一图元句柄"
+        },
+        "handle2": {
+          "type": "string",
+          "description": "第二图元句柄"
+        },
+        "distance1": {
+          "type": "number",
+          "description": "第一倒角距离",
+          "default": "1.0"
+        },
+        "distance2": {
+          "type": "number",
+          "description": "第二倒角距离",
+          "default": "1.0"
+        }
+      },
+      "required": [
+        "handle1",
+        "handle2"
+      ]
+    }
+  },
+  {
+    "name": "break",
+    "description": "[编辑命令] 打断图元",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄"
+        },
+        "point1": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "打断点[x,y]"
+        },
+        "point2": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "第二打断点[x,y]"
+        }
+      },
+      "required": [
+        "point1"
+      ]
+    }
+  },
+  {
+    "name": "stretch",
+    "description": "[编辑命令] 拉伸图元",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "minx": {
+          "type": "number",
+          "description": "交叉窗口X1"
+        },
+        "miny": {
+          "type": "number",
+          "description": "交叉窗口Y1"
+        },
+        "maxx": {
+          "type": "number",
+          "description": "交叉窗口X2"
+        },
+        "maxy": {
+          "type": "number",
+          "description": "交叉窗口Y2"
+        },
+        "dx": {
+          "type": "number",
+          "description": "X位移"
+        },
+        "dy": {
+          "type": "number",
+          "description": "Y位移"
+        }
+      },
+      "required": [
+        "minx",
+        "miny",
+        "maxx",
+        "maxy",
+        "dx",
+        "dy"
+      ]
+    }
+  },
+  {
+    "name": "align",
+    "description": "[编辑命令] 对齐图元",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "src_handle": {
+          "type": "string",
+          "description": "源图元句柄"
+        },
+        "src1": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "源第一点"
+        },
+        "src2": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "源第二点"
+        },
+        "dst1": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "目标第一点"
+        },
+        "dst2": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "目标第二点"
+        }
+      },
+      "required": [
+        "src_handle",
+        "src1",
+        "src2",
+        "dst1",
+        "dst2"
+      ]
+    }
+  },
+  {
+    "name": "change_properties",
+    "description": "[编辑命令] 批量修改属性(color 传 ACI 0-256 或真彩色 #RRGGBB;256=随层;未识别到任何属性会报错)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle": {
+          "type": "string",
+          "description": "单图元句柄"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "多图元句柄"
+        },
+        "index": {
+          "type": "integer",
+          "description": "图元索引"
+        },
+        "use_selection": {
+          "type": "string",
+          "description": "\"true\"=修改选中集"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 0-256(256=随层) 或真彩色 #RRGGBB"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层名(不存在会自动创建)"
+        },
+        "linetype": {
+          "type": "string",
+          "description": "线型名(未加载会先从 .lin 自动加载)"
+        },
+        "text": {
+          "type": "string",
+          "description": "文字内容"
+        },
+        "text_height": {
+          "type": "number",
+          "description": "文字高度"
+        },
+        "lineweight": {
+          "type": "integer",
+          "description": "线宽(百分之一毫米:25=0.25mm,-1=随层,-2=默认,-3=随块)"
+        },
+        "linetype_scale": {
+          "type": "number",
+          "description": "线型比例(>0)"
+        },
+        "visible": {
+          "type": "string",
+          "description": "可见性(on/off,true/false,1/0)"
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "透明度(0-90)"
+        },
+        "plot_style": {
+          "type": "string",
+          "description": "打印样式名"
+        },
+        "text_style": {
+          "type": "string",
+          "description": "文字样式名"
+        },
+        "rotation": {
+          "type": "number",
+          "description": "旋转(弧度,仅文字)"
+        },
+        "oblique": {
+          "type": "number",
+          "description": "倾斜角(仅文字)"
+        },
+        "width_factor": {
+          "type": "number",
+          "description": "宽度因子(>0,仅文字)"
+        }
+      }
+    }
+  },
+  {
+    "name": "erase_by_filter",
+    "description": "[编辑命令] 按条件过滤删除(必须至少一个有效过滤条件,否则拒绝执行;单数 layer/type/handle 会自动纠正)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "类型筛选"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "图层筛选"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "句柄筛选"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色筛选:ACI 0-256 或真彩色 #RRGGBB"
+        },
+        "match": {
+          "type": "string",
+          "description": "匹配模式any/all"
+        }
+      }
+    }
+  },
+  {
+    "name": "undo",
+    "description": "[编辑命令] 撤销(step逐步/begin组/end组)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "撤销类型:step(逐步)/begin(开始组)/end(结束组)",
+          "default": "step"
+        },
+        "count": {
+          "type": "integer",
+          "description": "撤销步数(step用)",
+          "default": "1"
+        }
+      }
+    }
+  },
+  {
+    "name": "explode",
+    "description": "[编辑命令] 炸开图元（多段线/块引用/尺寸/填充等）",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄"
+        },
+        "use_selection": {
+          "type": "string",
+          "description": "\"true\"=炸开选中集"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      }
+    }
+  },
+  {
+    "name": "join_entity",
+    "description": "[编辑命令] 连接图元（合并共线线段/圆弧为多段线）",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "至少2个句柄"
+        },
+        "tolerance": {
+          "type": "number",
+          "description": "端点重合容差",
+          "default": "0.01"
+        }
+      },
+      "required": [
+        "handles"
+      ]
+    }
+  },
+  {
+    "name": "array",
+    "description": "[编辑命令] 阵列（自动分发到array_rect或array_polar） —— ★必填项随 type 变化：type=rect 需 handle(或 index)/rows/cols/row_spacing/col_spacing；type=polar 需 handle/count(center_x、center_y 缺省为0)。也可直接调用 array_rect / array_polar。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle": {
+          "type": "string",
+          "description": "源图元句柄(polar 必填;rect 与 index 二选一)"
+        },
+        "index": {
+          "type": "integer",
+          "description": "源图元索引(仅rect,与 handle 二选一)"
+        },
+        "type": {
+          "type": "string",
+          "description": "\"rect\"或\"polar\"",
+          "default": "rect"
+        },
+        "rows": {
+          "type": "integer",
+          "description": "行数(type=rect 必填,缺省1)"
+        },
+        "cols": {
+          "type": "integer",
+          "description": "列数(type=rect 必填,缺省1)"
+        },
+        "row_spacing": {
+          "type": "number",
+          "description": "行距(type=rect 必填,缺省0)"
+        },
+        "col_spacing": {
+          "type": "number",
+          "description": "列距(type=rect 必填,缺省0)"
+        },
+        "count": {
+          "type": "integer",
+          "description": "环形个数(type=polar 必填,至少2)"
+        },
+        "center_x": {
+          "type": "number",
+          "description": "环形中心X(仅polar,缺省0)"
+        },
+        "center_y": {
+          "type": "number",
+          "description": "环形中心Y(仅polar,缺省0)"
+        },
+        "angle": {
+          "type": "number",
+          "description": "环形角度(仅polar,缺省360)"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      }
+    }
+  },
+  {
+    "name": "array_rect",
+    "description": "[编辑命令] 矩形阵列",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle": {
+          "type": "string",
+          "description": "源图元句柄"
+        },
+        "rows": {
+          "type": "integer",
+          "description": "行数"
+        },
+        "cols": {
+          "type": "integer",
+          "description": "列数"
+        },
+        "row_spacing": {
+          "type": "number",
+          "description": "行距"
+        },
+        "col_spacing": {
+          "type": "number",
+          "description": "列距"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "handle",
+        "rows",
+        "cols",
+        "row_spacing",
+        "col_spacing"
+      ]
+    }
+  },
+  {
+    "name": "array_polar",
+    "description": "[编辑命令] 环形阵列",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle": {
+          "type": "string",
+          "description": "源图元句柄"
+        },
+        "center_x": {
+          "type": "number",
+          "description": "中心X"
+        },
+        "center_y": {
+          "type": "number",
+          "description": "中心Y"
+        },
+        "count": {
+          "type": "integer",
+          "description": "个数"
+        },
+        "angle": {
+          "type": "number",
+          "description": "总角度",
+          "default": "360"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "handle",
+        "center_x",
+        "center_y",
+        "count"
+      ]
+    }
+  },
+  {
+    "name": "insert_block",
+    "description": "[块与组] 插入块参照",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "块名"
+        },
+        "x": {
+          "type": "number",
+          "description": "插入点X",
+          "default": "0"
+        },
+        "y": {
+          "type": "number",
+          "description": "插入点Y",
+          "default": "0"
+        },
+        "scalex": {
+          "type": "number",
+          "description": "X缩放",
+          "default": "1"
+        },
+        "scaley": {
+          "type": "number",
+          "description": "Y缩放",
+          "default": "1"
+        },
+        "scalez": {
+          "type": "number",
+          "description": "Z缩放",
+          "default": "1"
+        },
+        "angle": {
+          "type": "number",
+          "description": "旋转角度(度)",
+          "default": "0"
+        },
+        "attrs": {
+          "type": "object",
+          "description": "属性键值对{tag:value}"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "block_query",
+    "description": "[块与组] 块查询(list列出/info详情)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "查询类型:list(列出块定义)/info(块详细信息)"
+        },
+        "filter": {
+          "type": "string",
+          "description": "名称过滤(list用)"
+        },
+        "name": {
+          "type": "string",
+          "description": "块名(info用)"
+        },
+        "handle": {
+          "type": "string",
+          "description": "块定义/引用句柄(info用)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "block_attr",
+    "description": "[块与组] 块属性(set修改/get提取)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "操作:set(修改属性)/get(提取属性)"
+        },
+        "attrs": {
+          "type": "object",
+          "description": "属性键值对(set用)"
+        },
+        "name": {
+          "type": "string",
+          "description": "块名(get/set用)"
+        },
+        "handle": {
+          "type": "string",
+          "description": "块引用句柄(set用)"
+        },
+        "export": {
+          "type": "boolean",
+          "description": "是否导出(get用)",
+          "default": "false"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "block_replace",
+    "description": "[块与组] 替换块定义",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "old_name": {
+          "type": "string",
+          "description": "旧块名"
+        },
+        "new_name": {
+          "type": "string",
+          "description": "新块名"
+        }
+      },
+      "required": [
+        "old_name",
+        "new_name"
+      ]
+    }
+  },
+  {
+    "name": "group_op",
+    "description": "[块与组] 组操作(create/add/remove/ungroup) —— ★仅支持十六进制Handle,不支持indices\n★组(GROUP)存储位置因平台而异:中望CAD在命名对象字典(用 dictsearch 查询);AutoCAD在GROUP符号表(用 tblsearch \"GROUP\" 查询)。写LISP时按当前平台选用对应方式。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "操作:create(建组)/add(加图元)/remove(移图元)/ungroup(解散)"
+        },
+        "name": {
+          "type": "string",
+          "description": "组名(create/ungroup必填,add/remove必填)"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "图元句柄数组(create/add/remove必填)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "hatch",
+    "description": "[填充命令] 填充封闭区域",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "图案名",
+          "default": "SOLID"
+        },
+        "scale": {
+          "type": "number",
+          "description": "图案比例",
+          "default": "1"
+        },
+        "angle": {
+          "type": "number",
+          "description": "图案角度(度)",
+          "default": "0"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "边界图元句柄"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "边界多边形顶点"
+        },
+        "island_mode": {
+          "type": "string",
+          "description": "孤岛检测:default/outer/ignore",
+          "default": "default"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      }
+    }
+  },
+  {
+    "name": "get_drawing_summary",
+    "description": "[查询命令] 图纸摘要统计(类型/图层/密度)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "minx": {
+          "type": "number",
+          "description": "范围左下X"
+        },
+        "miny": {
+          "type": "number",
+          "description": "范围左下Y"
+        },
+        "maxx": {
+          "type": "number",
+          "description": "范围右上X"
+        },
+        "maxy": {
+          "type": "number",
+          "description": "范围右上Y"
+        }
+      }
+    }
+  },
+  {
+    "name": "get_drawing_fingerprint",
+    "description": "[查询命令] 图纸指纹(聚类+重复+异常诊断)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "max_entities": {
+          "type": "integer",
+          "description": "最大图元数",
+          "default": "2000"
+        },
+        "no_redundant": {
+          "type": "boolean",
+          "description": "跳过冗余检测"
+        }
+      }
+    }
+  },
+  {
+    "name": "query_entities",
+    "description": "[查询命令] 查询图元列表(图层/类型/范围过滤)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "summary/compact/full;compact=仅索引/类型/图层(要坐标/句柄用 full)",
+          "default": "full"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层名"
+        },
+        "type": {
+          "type": "string",
+          "description": "图元类型"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色(红/red/1/ByLayer)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "最大返回数",
+          "default": "50"
+        },
+        "tags": {
+          "type": "string",
+          "description": "标签过滤(','分隔,匹配任一)"
+        },
+        "bounds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "范围[x1,y1,x2,y2]"
+        }
+      }
+    }
+  },
+  {
+    "name": "get_entity",
+    "description": "[查询命令] 图元详情+端点连接+BFS可达",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "索引(从0开始)"
+        },
+        "handle": {
+          "type": "string",
+          "description": "Handle字符串"
+        }
+      }
+    }
+  },
+  {
+    "name": "entity_info",
+    "description": "[查询命令] 获取图元完整DXF属性（Lisp轮询）",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄"
+        }
+      }
+    }
+  },
+  {
+    "name": "entity_count",
+    "description": "[查询命令] 统计指定类型/标签/颜色的图元数量",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "类型(不填=全部)"
+        },
+        "tags": {
+          "type": "string",
+          "description": "标签过滤(','分隔,匹配任一)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色过滤(名称或索引)"
+        }
+      }
+    }
+  },
+  {
+    "name": "find_text",
+    "description": "[查询命令] 搜索图纸中的文字(DBText+MText)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "搜索关键字"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层过滤"
+        },
+        "tags": {
+          "type": "string",
+          "description": "标签过滤(','分隔,匹配任一)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "最大返回数",
+          "default": "30"
+        }
+      }
+    }
+  },
+  {
+    "name": "get_bounds",
+    "description": "[查询命令] 图元包围盒(单/多/标签/全图)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle": {
+          "type": "string",
+          "description": "单图元句柄"
+        },
+        "index": {
+          "type": "integer",
+          "description": "单图元索引"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "多图元句柄(优先)"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "标签过滤(无handles时获取标签集合包围盒)"
+        }
+      }
+    }
+  },
+  {
+    "name": "sysvar",
+    "description": "[查询命令] 读写CAD系统变量(action=get查询/set设置)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "get=查询/set=设置"
+        },
+        "name": {
+          "type": "string",
+          "description": "变量名(set必填;get多个逗号分隔)"
+        },
+        "value": {
+          "description": "变量值(仅set必填):数字按数字传;非数字自动补引号(也可自行写成 \"..\")。字符串型变量如 DIMDSEP/CECOLOR 不接受整数"
+        },
+        "mode": {
+          "type": "string",
+          "description": "set 的执行方式:auto(默认)/lisp(强制异步下发)"
+        }
+      },
+      "required": [
+        "action",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "query_relations",
+    "description": "[查询命令] 空间关系(临近/相交/包含)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "目标图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "目标图元句柄"
+        },
+        "relation": {
+          "type": "string",
+          "description": "临近/相交/包含",
+          "default": "最近"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "候选集标签过滤(','分隔,匹配任一)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "返回数",
+          "default": "10"
+        },
+        "mode": {
+          "type": "string",
+          "description": "precise=精确求交"
+        }
+      }
+    }
+  },
+  {
+    "name": "trace_boundary",
+    "description": "[查询命令] 在指定点追踪封闭边界",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "种子点X"
+        },
+        "y": {
+          "type": "number",
+          "description": "种子点Y"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    }
+  },
+  {
+    "name": "verify_result",
+    "description": "[查询命令] 对比图纸修改(快照本地diff:句柄/坐标/文字/图层/颜色)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "snapshot=拍基准 / diff=对比(默认)",
+          "default": "diff"
+        },
+        "detail": {
+          "type": "boolean",
+          "description": "显示逐图元详细变化",
+          "default": "false"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "仅对比指定句柄(大图本地精准对比)"
+        },
+        "layer": {
+          "type": "string",
+          "description": "仅对比该图层(本地精准对比)"
+        },
+        "space": {
+          "type": "string",
+          "description": "仅对比该空间(model=模型/布局名,默认全部空间)"
+        }
+      }
+    }
+  },
+  {
+    "name": "compare_drawings",
+    "description": "[查询命令] 跨文件对比两张图纸(A vs B:仅A/仅B/共同但不同)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "file_a": {
+          "type": "string",
+          "description": "图纸A路径(省略=当前活动文档)"
+        },
+        "file_b": {
+          "type": "string",
+          "description": "图纸B路径(对比目标)"
+        },
+        "detail": {
+          "type": "boolean",
+          "description": "显示逐图元详细变化",
+          "default": "false"
+        },
+        "layer": {
+          "type": "string",
+          "description": "仅对比该图层"
+        },
+        "space": {
+          "type": "string",
+          "description": "仅对比该空间(model=模型/布局名,默认全部空间)"
+        }
+      },
+      "required": [
+        "file_b"
+      ]
+    }
+  },
+  {
+    "name": "list_styles",
+    "description": "[查询命令] 列出命名样式(文字/标注/线型)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "get_selection",
+    "description": "[查询命令] 获取当前选中的图元列表",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "get_dwg_info",
+    "description": "[查询命令] 获取当前图纸基本信息",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "read_commandline",
+    "description": "[查询命令] 读取CAD命令行状态(CMDACTIVE/CMDNAMES/LASTPROMPT)；tail=N 时附带命令日志尾部N行(即完整的命令行历史)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tail": {
+          "type": "integer",
+          "description": "附带命令日志尾部行数(0=不带，默认0)",
+          "default": "0"
+        }
+      }
+    }
+  },
+  {
+    "name": "layer_query",
+    "description": "[查询命令] 图层查询(count带图元数/detail状态)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "count=列出图层及图元数 / detail=图层状态详情",
+          "default": "count"
+        },
+        "simple": {
+          "type": "boolean",
+          "description": "detail模式时true=精简输出",
+          "default": "false"
+        }
+      }
+    }
+  },
+  {
+    "name": "list_all",
+    "description": "[查询命令] 列出全部(图层/文字/标注)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "要列出的类型:layers(图层)/text(文字)/dimensions(标注)"
+        }
+      },
+      "required": [
+        "kind"
+      ]
+    }
+  },
+  {
+    "name": "geo_basic",
+    "description": "[几何计算] 几何量(distance/angle/midpoint) —— 图元模式:distance用几何中心+双向采样最近点;angle/midpoint取几何中心(圆=圆心,线=中点,弧=圆心)。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "几何量类型:distance(距离)/angle(夹角)/midpoint(中点)"
+        },
+        "x1": {
+          "type": "number",
+          "description": "第一点X"
+        },
+        "y1": {
+          "type": "number",
+          "description": "第一点Y"
+        },
+        "x2": {
+          "type": "number",
+          "description": "第二点X"
+        },
+        "y2": {
+          "type": "number",
+          "description": "第二点Y"
+        },
+        "handle1": {
+          "type": "string",
+          "description": "第一图元句柄"
+        },
+        "handle2": {
+          "type": "string",
+          "description": "第二图元句柄"
+        },
+        "index1": {
+          "type": "integer",
+          "description": "第一图元索引"
+        },
+        "index2": {
+          "type": "integer",
+          "description": "第二图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄(midpoint用)"
+        },
+        "index": {
+          "type": "integer",
+          "description": "图元索引(midpoint用)"
+        },
+        "pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "description": "批量计算[[i1,i2],[i3,i4],...](distance/angle用)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "geo_query",
+    "description": "[几何计算] 图元几何量(intersection/nearest/area/length)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "几何量类型:intersection(交点)/nearest(最近点)/area(面积)/length(曲线长度)"
+        },
+        "handle1": {
+          "type": "string",
+          "description": "第一图元句柄(intersection)"
+        },
+        "handle2": {
+          "type": "string",
+          "description": "第二图元句柄(intersection)"
+        },
+        "index1": {
+          "type": "integer",
+          "description": "第一图元索引(intersection)"
+        },
+        "index2": {
+          "type": "integer",
+          "description": "第二图元索引(intersection)"
+        },
+        "handle": {
+          "type": "string",
+          "description": "目标图元句柄(nearest/area/length)"
+        },
+        "index": {
+          "type": "integer",
+          "description": "目标图元索引(nearest/area/length)"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "多图元句柄(area用)"
+        },
+        "x": {
+          "type": "number",
+          "description": "参考点X(nearest)"
+        },
+        "y": {
+          "type": "number",
+          "description": "参考点Y(nearest)"
+        },
+        "extend": {
+          "type": "boolean",
+          "description": "是否延伸(nearest)",
+          "default": "false"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "calc_area",
+    "description": "[几何计算] 面积/周长计算(单个或多图元，按真实句柄/序号定位)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "目标图元索引(单值)"
+        },
+        "indices": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "目标图元索引数组"
+        },
+        "handle": {
+          "type": "string",
+          "description": "目标图元句柄(单值)"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "目标图元句柄数组"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "标签过滤(可选)"
+        }
+      }
+    }
+  },
+  {
+    "name": "divide_curve",
+    "description": "[几何计算] 曲线等分(equal定数/measure定距/native点)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "等分模式:equal(定数等分)/measure(定距等分)/native(等分放置点)"
+        },
+        "handle": {
+          "type": "string",
+          "description": "曲线句柄(equal/measure必填)"
+        },
+        "segments": {
+          "type": "integer",
+          "description": "等分段数(equal)",
+          "default": "2"
+        },
+        "distance": {
+          "type": "number",
+          "description": "点间距(measure)"
+        },
+        "index": {
+          "type": "integer",
+          "description": "图元索引(native)"
+        },
+        "points": {
+          "type": "integer",
+          "description": "等分数(native)",
+          "default": "2"
+        }
+      },
+      "required": [
+        "mode"
+      ]
+    }
+  },
+  {
+    "name": "connected",
+    "description": "[空间感知] 拓扑连接查询(端点重合+连通分支)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "目标图元索引"
+        },
+        "handle": {
+          "type": "string",
+          "description": "目标图元句柄"
+        }
+      }
+    }
+  },
+  {
+    "name": "inside",
+    "description": "[空间感知] 区域内图元查询",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "bounds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "矩形[x1,y1,x2,y2]"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "闭合轮廓句柄"
+        }
+      }
+    }
+  },
+  {
+    "name": "aligned",
+    "description": "[空间感知] 对齐检测",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "参照图元"
+        },
+        "handle": {
+          "type": "string",
+          "description": "参照句柄"
+        },
+        "tolerance": {
+          "type": "number",
+          "description": "容差",
+          "default": "5"
+        }
+      }
+    }
+  },
+  {
+    "name": "detect_clash",
+    "description": "[空间感知] 碰撞/重叠检测(几何求交)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "layer1": {
+          "type": "string",
+          "description": "图层A"
+        },
+        "layer2": {
+          "type": "string",
+          "description": "图层B"
+        },
+        "type1": {
+          "type": "string",
+          "description": "类型A"
+        },
+        "type2": {
+          "type": "string",
+          "description": "类型B"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "最大对数",
+          "default": "20"
+        },
+        "min_gap": {
+          "type": "number",
+          "description": "最小间隙阈值"
+        }
+      }
+    }
+  },
+  {
+    "name": "find_vacant",
+    "description": "[空间感知] 查找空地放置指定尺寸矩形",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number",
+          "description": "矩形宽度"
+        },
+        "height": {
+          "type": "number",
+          "description": "矩形高度"
+        },
+        "margin": {
+          "type": "number",
+          "description": "安全边距",
+          "default": "0"
+        },
+        "region": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "限定区域[x1,y1,x2,y2]"
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ]
+    }
+  },
+  {
+    "name": "detect_islands",
+    "description": "[空间感知] 空间孤岛/聚类检测(Union-Find)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "gap": {
+          "type": "number",
+          "description": "间距阈值",
+          "default": "图幅1%"
+        },
+        "min_size": {
+          "type": "integer",
+          "description": "最小图元数",
+          "default": "3"
+        }
+      }
+    }
+  },
+  {
+    "name": "zoom",
+    "description": "[视图命令] 缩放视图(无参数=范围缩放/带窗口=窗口缩放;x1/y1/x2/y2 之外的参数会被忽略并提示)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "x1": {
+          "type": "number",
+          "description": "窗口角1X(窗口缩放用)"
+        },
+        "y1": {
+          "type": "number",
+          "description": "窗口角1Y(窗口缩放用)"
+        },
+        "x2": {
+          "type": "number",
+          "description": "窗口角2X(窗口缩放用)"
+        },
+        "y2": {
+          "type": "number",
+          "description": "窗口角2Y(窗口缩放用)"
+        }
+      }
+    }
+  },
+  {
+    "name": "pan",
+    "description": "[视图命令] 平移视图",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "dx": {
+          "type": "number",
+          "description": "X位移"
+        },
+        "dy": {
+          "type": "number",
+          "description": "Y位移"
+        }
+      },
+      "required": [
+        "dx",
+        "dy"
+      ]
+    }
+  },
+  {
+    "name": "screenshot",
+    "description": "[视图命令] 截取当前视口/指定模型范围/电脑屏幕区域(坐标:模型用 x1,y1,x2,y2;屏幕用 x,y,width,height)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "quality": {
+          "type": "integer",
+          "description": "JPEG质量0-100",
+          "default": "75"
+        },
+        "max_dimension": {
+          "type": "integer",
+          "description": "最大边长",
+          "default": "1280"
+        },
+        "x1": {
+          "type": "number",
+          "description": "模型坐标截图范围左下X(与 y1/x2/y2 同传)"
+        },
+        "y1": {
+          "type": "number",
+          "description": "模型坐标截图范围左下Y"
+        },
+        "x2": {
+          "type": "number",
+          "description": "模型坐标截图范围右上X"
+        },
+        "y2": {
+          "type": "number",
+          "description": "模型坐标截图范围右上Y"
+        },
+        "tag": {
+          "type": "string",
+          "description": "按标签定位(算包围盒后截图)"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "按句柄定位(算包围盒后截图)"
+        },
+        "fit": {
+          "type": "boolean",
+          "description": "无坐标时缩放到全图(默认 false=保持当前视图)",
+          "default": "false"
+        },
+        "restore_view": {
+          "type": "boolean",
+          "description": "截图后复原视图(默认 true)",
+          "default": "true"
+        },
+        "x": {
+          "type": "integer",
+          "description": "屏幕像素区域左上X(与后三项同传=截屏幕区域)"
+        },
+        "y": {
+          "type": "integer",
+          "description": "屏幕像素区域左上Y"
+        },
+        "width": {
+          "type": "integer",
+          "description": "屏幕像素区域宽"
+        },
+        "height": {
+          "type": "integer",
+          "description": "屏幕像素区域高"
+        }
+      }
+    }
+  },
+  {
+    "name": "get_viewport",
+    "description": "[视图命令] 视口信息(双空间参数:纸面中心/尺寸/编号/锁定 + 模型视图中心/视图高/可见模型范围/比例)；有handle读该视口，无参读当前空间第一个浮动视口",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle": {
+          "type": "string",
+          "description": "布局视口句柄(不填=当前空间第一个浮动视口)"
+        }
+      }
+    }
+  },
+  {
+    "name": "selection_state",
+    "description": "[选择与工具] 选中集状态(all全选/none取消/erase删除)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "状态操作:all(全选)/none(取消全选)/erase(删除选中图元)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "noop",
+    "description": "[选择与工具] 空操作(测试连通性)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "select_region",
+    "description": "[选择与工具] 按区域选择(rect/polygon/fence)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "shape": {
+          "type": "string",
+          "description": "区域形状:rect(矩形窗口)/polygon(多边形)/fence(栅栏线)"
+        },
+        "minx": {
+          "type": "number",
+          "description": "左下X(rect)"
+        },
+        "miny": {
+          "type": "number",
+          "description": "左下Y(rect)"
+        },
+        "maxx": {
+          "type": "number",
+          "description": "右上X(rect)"
+        },
+        "maxy": {
+          "type": "number",
+          "description": "右上Y(rect)"
+        },
+        "x1": {
+          "type": "number",
+          "description": "第一角X(rect,select_window风格)"
+        },
+        "y1": {
+          "type": "number",
+          "description": "第一角Y(rect)"
+        },
+        "x2": {
+          "type": "number",
+          "description": "对角X(rect)"
+        },
+        "y2": {
+          "type": "number",
+          "description": "对角Y(rect)"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "顶点[x1,y1,...](polygon/fence,至少6个值)"
+        },
+        "mode": {
+          "type": "string",
+          "description": "inside/crossing/outside(rect用)",
+          "default": "crossing"
+        }
+      },
+      "required": [
+        "shape"
+      ]
+    }
+  },
+  {
+    "name": "select_by_name",
+    "description": "[选择与工具] 按图层名或块名选择(type=layer/block)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "layer=按图层/block=按块名"
+        },
+        "name": {
+          "type": "string",
+          "description": "图层名或块名"
+        }
+      },
+      "required": [
+        "type",
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "select_filter",
+    "description": "[选择与工具] 条件选择(combined组合/similar相似)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "选择模式:combined(多条件组合)/similar(相似图元)"
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "类型筛选(combined)"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "图层筛选(combined)"
+        },
+        "colors": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "颜色筛选(combined)"
+        },
+        "andor": {
+          "type": "string",
+          "description": "and/or(combined)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "最大数量(combined)"
+        },
+        "index": {
+          "type": "integer",
+          "description": "参照图元(similar)"
+        },
+        "handle": {
+          "type": "string",
+          "description": "参照句柄(similar)"
+        },
+        "by_layer": {
+          "type": "boolean",
+          "description": "按图层(similar)"
+        },
+        "by_type": {
+          "type": "boolean",
+          "description": "按类型(similar)"
+        },
+        "by_color": {
+          "type": "boolean",
+          "description": "按颜色(similar)"
+        },
+        "tolerance": {
+          "type": "number",
+          "description": "容差(similar)"
+        }
+      },
+      "required": [
+        "mode"
+      ]
+    }
+  },
+  {
+    "name": "check_inside_frame",
+    "description": "[选择与工具] 图元/点是否在图框内",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "min_x": {
+          "type": "number",
+          "description": "边界X1"
+        },
+        "min_y": {
+          "type": "number",
+          "description": "边界Y1"
+        },
+        "max_x": {
+          "type": "number",
+          "description": "边界X2"
+        },
+        "max_y": {
+          "type": "number",
+          "description": "边界Y2"
+        },
+        "frame_handle": {
+          "type": "string",
+          "description": "图框句柄"
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "待检查句柄"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "待检查点"
+        },
+        "index": {
+          "type": "integer",
+          "description": "待检查图元索引"
+        },
+        "margin": {
+          "type": "number",
+          "description": "边缘容差",
+          "default": "0"
+        }
+      }
+    }
+  },
+  {
+    "name": "get_region",
+    "description": "[选择与工具] 空间聚焦查询(矩形/圆/多边形 + 相交/跨界/在内/邻近距离；view=true 直接查当前显示范围)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "bounds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "范围[x1,y1,x2,y2](shape=rect 时必填；或改用 view=true)"
+        },
+        "view": {
+          "type": "boolean",
+          "description": "true=用当前显示范围(视口感知：布局内已进入视口则用该视口的模型视图)",
+          "default": "false"
+        },
+        "shape": {
+          "type": "string",
+          "description": "rect/circle/polygon",
+          "default": "rect"
+        },
+        "cx": {
+          "type": "number",
+          "description": "圆心X(shape=circle)"
+        },
+        "cy": {
+          "type": "number",
+          "description": "圆心Y(shape=circle)"
+        },
+        "radius": {
+          "type": "number",
+          "description": "半径(shape=circle)"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "多边形顶点[x1,y1,x2,y2,...](shape=polygon,至少3点)"
+        },
+        "relation": {
+          "type": "string",
+          "description": "any(相交,默认)/crossing(严格跨界)/inside(完全在内)/near(距离≤max_distance)",
+          "default": "any"
+        },
+        "max_distance": {
+          "type": "number",
+          "description": "relation=near 的距离阈值",
+          "default": "0"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层过滤"
+        },
+        "type": {
+          "type": "string",
+          "description": "类型过滤"
+        },
+        "tags": {
+          "type": "string",
+          "description": "标签过滤(','分隔,匹配任一)"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "最大返回数",
+          "default": "30"
+        }
+      }
+    }
+  },
+  {
+    "name": "entity_track",
+    "description": "[选择与工具] 快照跟踪(start基准/end打标签) —— 绘制前start建基准,绘制后end自动识别新图元打标签。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "跟踪操作:start(创建快照基准)/end(结束并diff打标签)"
+        },
+        "tags": {
+          "type": "string",
+          "description": "标签列表(end用,','/'，'/' '分隔)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "entity_tag",
+    "description": "[选择与工具] 标签管理(add/remove/query/select) —— ★仅支持十六进制Handle。标签持久化在DWG的XData中,关闭图纸后不丢失。选中后可用 use_selection=true 批量操作。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "操作:add(添加标签)/remove(移除标签)/query(查询标签)/select(按标签选中)"
+        },
+        "handles": {
+          "type": "string",
+          "description": "图元句柄(','分隔,add/remove/query用)"
+        },
+        "tags": {
+          "type": "string",
+          "description": "标签列表(add用)"
+        },
+        "tag": {
+          "type": "string",
+          "description": "标签名(select/remove单标签用)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "layout",
+    "description": "[布局与视口] 布局：列出/切换(切换时若名字不存在则先自动新建再切换；标签名与内部名均可)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "list(默认)/switch",
+          "default": "list"
+        },
+        "name": {
+          "type": "string",
+          "description": "布局名：标签名(布局1)/内部名(*Paper_Space0)/模型空间(模型|Model)"
+        }
+      }
+    }
+  },
+  {
+    "name": "create_viewport",
+    "description": "[布局与视口] 创建视口",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string",
+          "description": "布局名"
+        },
+        "model_x1": {
+          "type": "number",
+          "description": "模型空间X1"
+        },
+        "model_y1": {
+          "type": "number",
+          "description": "模型空间Y1"
+        },
+        "model_x2": {
+          "type": "number",
+          "description": "模型空间X2"
+        },
+        "model_y2": {
+          "type": "number",
+          "description": "模型空间Y2"
+        },
+        "vp_x1": {
+          "type": "number",
+          "description": "纸空间视口X1"
+        },
+        "vp_y1": {
+          "type": "number",
+          "description": "纸空间视口Y1"
+        },
+        "vp_x2": {
+          "type": "number",
+          "description": "纸空间视口X2"
+        },
+        "vp_y2": {
+          "type": "number",
+          "description": "纸空间视口Y2"
+        },
+        "rotation": {
+          "type": "number",
+          "description": "旋转角度"
+        },
+        "layer": {
+          "type": "string",
+          "description": "视口图层"
+        },
+        "locked": {
+          "type": "boolean",
+          "description": "是否锁定"
+        }
+      },
+      "required": [
+        "layout",
+        "model_x1",
+        "model_y1",
+        "model_x2",
+        "model_y2",
+        "vp_x1",
+        "vp_y1",
+        "vp_x2",
+        "vp_y2"
+      ]
+    }
+  },
+  {
+    "name": "set_viewport",
+    "description": "[布局与视口] 修改已有布局视口(view可按模型范围设;scale为CustomScale=图纸/模型,0.2即1:5)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "handle": {
+          "type": "string",
+          "description": "视口实体句柄(经 get_viewport/layout/get_entity 获取)"
+        },
+        "action": {
+          "type": "string",
+          "description": "scale=设比例(CustomScale)/view=设显示范围"
+        },
+        "scale": {
+          "type": "number",
+          "description": "CustomScale=图纸/模型：0.2=1:5、0.01=1:100、1.0=1:1(仅scale)"
+        },
+        "model_x1": {
+          "type": "number",
+          "description": "模型范围左下X(仅view，与model_x2/y1/y2 一起用)"
+        },
+        "model_y1": {
+          "type": "number",
+          "description": "模型范围左下Y(仅view)"
+        },
+        "model_x2": {
+          "type": "number",
+          "description": "模型范围右上X(仅view)"
+        },
+        "model_y2": {
+          "type": "number",
+          "description": "模型范围右上Y(仅view)"
+        },
+        "view_center_x": {
+          "type": "number",
+          "description": "模型中心点X(可选)"
+        },
+        "view_center_y": {
+          "type": "number",
+          "description": "模型中心点Y(可选)"
+        },
+        "width": {
+          "type": "number",
+          "description": "可见模型宽(仅view,与height二选一)"
+        },
+        "height": {
+          "type": "number",
+          "description": "可见模型高(仅view,与width二选一)"
+        }
+      },
+      "required": [
+        "handle",
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "find_frame_bounds",
+    "description": "[布局与视口] 查找图框边界",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "layer": {
+          "type": "string",
+          "description": "图层限定"
+        },
+        "min_width": {
+          "type": "number",
+          "description": "最小宽度"
+        },
+        "min_height": {
+          "type": "number",
+          "description": "最小高度"
+        },
+        "name_filter": {
+          "type": "string",
+          "description": "名称过滤"
+        }
+      }
+    }
+  },
+  {
+    "name": "append_file",
+    "description": "[文件管理] 追加内容到文件",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "路径"
+        },
+        "content": {
+          "type": "string",
+          "description": "追加内容"
+        }
+      },
+      "required": [
+        "file",
+        "content"
+      ]
+    }
+  },
+  {
+    "name": "replace_in_file",
+    "description": "[文件管理] 查找替换文件内容",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "路径"
+        },
+        "old_str": {
+          "type": "string",
+          "description": "查找"
+        },
+        "new_str": {
+          "type": "string",
+          "description": "替换"
+        }
+      },
+      "required": [
+        "file",
+        "old_str",
+        "new_str"
+      ]
+    }
+  },
+  {
+    "name": "save_library",
+    "description": "[文件管理] 保存LISP到代码库",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "完整代码"
+        },
+        "filename": {
+          "type": "string",
+          "description": "文件名"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "create_table",
+    "description": "[数据导出] 创建表格",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": "二维数组"
+        },
+        "insert_x": {
+          "type": "number",
+          "description": "插入点X"
+        },
+        "insert_y": {
+          "type": "number",
+          "description": "插入点Y"
+        },
+        "row_height": {
+          "type": "number",
+          "description": "行高",
+          "default": "7"
+        },
+        "col_width": {
+          "type": "number",
+          "description": "列宽",
+          "default": "40"
+        },
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "layer": {
+          "type": "string",
+          "description": "图层(空=当前层;不存在自动创建)"
+        },
+        "color": {
+          "type": "string",
+          "description": "颜色:ACI 1-255 / red·黄·cyan 等色名 / ByLayer / ByBlock / 真彩色 #RRGGBB"
+        }
+      },
+      "required": [
+        "data",
+        "insert_x",
+        "insert_y"
+      ]
+    }
+  },
+  {
+    "name": "dwg_op",
+    "description": "[DWG文件管理] DWG操作(open/close/switch)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "操作类型:open(打开)/close(关闭)/switch(切换)"
+        },
+        "file_path": {
+          "type": "string",
+          "description": "文件路径(open用)"
+        },
+        "save": {
+          "type": "string",
+          "description": "true/false(close用)"
+        },
+        "file_name": {
+          "type": "string",
+          "description": "文件名(close/switch用;close留空=当前活动文档)"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "help",
+    "description": "[杂项] 命令文档查询",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "命令名数组"
+        },
+        "command": {
+          "type": "string",
+          "description": "单个命令名"
+        }
+      }
+    }
+  },
+  {
+    "name": "cross_copy",
+    "description": "[杂项] 跨文件复制",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "source_file": {
+          "type": "string",
+          "description": "源文件"
+        },
+        "handle": {
+          "type": "string",
+          "description": "图元句柄"
+        },
+        "index": {
+          "type": "integer",
+          "description": "图元索引"
+        },
+        "x": {
+          "type": "number",
+          "description": "目标X"
+        },
+        "y": {
+          "type": "number",
+          "description": "目标Y"
+        }
+      },
+      "required": [
+        "source_file"
+      ]
+    }
+  },
+  {
+    "name": "save_snapshot",
+    "description": "[杂项] 保存当前DWG快照",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "simulate_keys",
+    "description": "[杂项] 键盘模拟 + 界面控件直投(仅兜底;不能用来画图;控件直投不需要前台/焦点，模态框也能用) —— 控件直投: 先 {action:'list'} 看控件清单，再 {control:'edit[0]',action:'set_text',text:'x'} / {control:'text=OK',action:'click'}；关模态框用 action=click_default / click_cancel(比发 ESC 稳)；下拉框用 {control:'combo[0]',action:'get_items'} 读选项、action=select 选中。set_text 会触发字段联动回调(action_tile)。抢前台规则: shortcut_name/key/keys 会抢前台并留在前台；给了 control（或用控件动作）则不抢前台。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "shortcut_name": {
+          "type": "string",
+          "description": "快捷键F8/F9/F3/ESC/ENTER"
+        },
+        "key": {
+          "type": "string",
+          "description": "键名"
+        },
+        "modifiers": {
+          "type": "string",
+          "description": "CTRL/ALT/SHIFT"
+        },
+        "keys": {
+          "type": "string",
+          "description": "SendKeys序列(整串作为一条发送、不拆逗号；多条传数组)"
+        },
+        "target": {
+          "type": "string",
+          "description": "控件直投的目标窗口: auto(默认,有DCL对话框就用它)/main/dialog/foreground/hwnd=<句柄:十六进制可带0x或十进制,如 0x340DC0 或 340DC0;可填顶层窗或子窗>"
+        },
+        "control": {
+          "type": "string",
+          "description": "控件选择器: edit[0]/button[0]/checkbox[0]/radio[0]/list[0]/combo[0]/static[0]、class=Edit、text=OK、id=1300"
+        },
+        "action": {
+          "type": "string",
+          "description": "控件动作: list(先查清单)/set_text/get_text/get_items/click/check/uncheck/select/click_default/click_cancel"
+        },
+        "text": {
+          "type": "string",
+          "description": "action=set_text 时写入的文本"
+        },
+        "index": {
+          "type": "integer",
+          "description": "action=select 时的列表项序号(0起)"
+        }
+      }
+    }
+  },
+  {
+    "name": "simulate_mouse",
+    "description": "[杂项] 鼠标模拟(仅兜底;点/拖等界面操作,不能用来画图;会把 CAD 切到前台并留在前台；改平台时用 simulate_keys 的控件直投更稳)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "click/right_click/double_click/middle_click/drag/move/left_down/left_up"
+        },
+        "x": {
+          "type": "number",
+          "description": "绝对X"
+        },
+        "y": {
+          "type": "number",
+          "description": "绝对Y"
+        },
+        "dx": {
+          "type": "number",
+          "description": "相对X"
+        },
+        "dy": {
+          "type": "number",
+          "description": "相对Y"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  },
+  {
+    "name": "lisp_eval",
+    "description": "[LISP/脚本命令] 同步执行Lisp —— 适用于查询/验证等需要返回值的场景；执行期间阻塞 CAD 线程。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Lisp表达式"
+        },
+        "stack": {
+          "type": "boolean",
+          "description": "出错时附带调用栈与行号(中望按需启动DAP,默认关)"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "lisp",
+    "description": "[LISP/脚本命令] 异步执行Lisp(要返回值/错误定位请用 lisp_eval) —— 适用于批量操作、修改系统变量等不需要返回值的场景。优先于cad_commands执行。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Lisp表达式"
+        },
+        "filename": {
+          "type": "string",
+          "description": "源码文件名"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "script",
+    "description": "[LISP/脚本命令] 执行Script(写.scr轮询结果) —— 适用于需要用Script语法的场景。会轮询等待执行完成。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Script命令文本(用\\n分隔)"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    }
+  },
+  {
+    "name": "python",
+    "description": "[LISP/脚本命令] 执行Python(复杂计算/数据处理) —— 独立子进程,120秒超时。可用库: numpy/scipy(含KDTree/ConvexHull/Delaunay/Voronoi)/shapely(相交/缓冲/布尔运算)+标准库math/json/csv等。silent=true完全静默。【外部批量】走REST /api/execute。必要时代码内可绕过 api/mcp,经 CAD COM 端口(ZWCAD.Application, win32com 直连)直接操作/查询对象模型(遍历实体、读几何、选择集、坐标转换等端口未暴露的能力)。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Python代码"
+        },
+        "silent": {
+          "type": "boolean",
+          "description": "true=不回传结果(fire-and-forget)，默认false"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    }
+  }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "中望 CAD 操作"
+  short_description: "中望 CAD 绘图改图、图层标注、空间查询、DWG 文件与对话框操作"
+  default_prompt: "使用 $zwcad-control 操作中望 CAD，完成绘图、改图、查询或对话框操作。"
