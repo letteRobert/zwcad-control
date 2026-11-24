@@ -40,9 +40,14 @@ python scripts/cad_bridge.py --port 9879 call --json-file request.json
 - 加图框、换图签、填写属性标题栏：读 [图框与属性标题栏](references/frames-titleblocks.md)。优先正式模板；随附 `scripts/cad_templates.py` 可离线生成纸面毫米的图框与七属性标题栏 DXF。
 - 新建图纸或补绘图设置：读 [绘图环境初始化](references/drawing-environment.md)，选择 `assets/drawing/` 项目配置示例；先核对单位，增量补缺，不覆盖已有共用样式。
 - 批量图签、面积注记、界址点编号/坐标表或规则几何：读 [参数化绘图方案](references/parametric-recipes.md)，统一参数和数据源，先验证一组再扩展。
-- 遇到同类项目问题或LISP编码、属性块、标注故障：查 [项目经验与故障索引](references/experience-index.md)。历史记录不等于当前验证；只有用户明确要求时写回经验，不自动改全局记忆。
+- 遇到同类项目问题或LISP编码、属性块、标注故障：查 [项目经验与故障索引](references/experience-index.md)。历史记录不等于当前验证。
 
 离线模板工具不依赖桥接DLL；真实图纸操作仍经过本技能的连接核验、实际结果检查和保存流程。
+
+## 坐标定位与案例复盘
+
+- 按一个界址点定位整图时，先把点号绑定到实际几何顶点，再核对当前坐标系、轴顺序和单位。用户给出 CAD X/Y 或要求保持坐标系时，照原顺序使用，不擅自交换。平移后读回同一顶点的坐标至要求精度，并核实坐标系、形状及目标文件。详见 [E07](references/experience-index.md#e07-界址点定位)。
+- 使用本技能时，先按任务关键词检索经验索引和工作区根目录已有的 `.zwcad-control/experience.md`。任务中遇到用户纠正、可复现的失败或实测有效的新做法，完成原任务验证后按[案例复盘流程](references/experience-index.md#案例复盘流程)更新可复用经验；例行成功、重复事件及未经验证的推测不自动记为新规则。
 
 ## 按任务选择工具
 

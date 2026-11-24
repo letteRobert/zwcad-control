@@ -40,3 +40,7 @@ python scripts/cad_readout.py --port 9879 --out readout.json
 - [完整技能说明](SKILL.md)
 - [参数化绘图示例](references/parametric-recipes.md)
 - [图框与属性标题栏](references/frames-titleblocks.md)
+
+## 从使用案例改进
+
+开启本地自动记录后，经验证的纠正和故障处理会整理成可检索的案例，供下次相关任务复用。公开更新通过 GitHub PR 审阅。见[案例复盘流程](references/experience-index.md#案例复盘流程)。
